@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  
+}
+
+</style>
+
+<script>
+//max-width: 3ch;
+
+function clear_table() {
+	var bodyRef = document.getElementById('cross_table').getElementsByTagName('tbody')[0];
+	bodyRef.innerHTML = '';
+}
+
+function on_cell_click(row, col) {
+	alert(row+" " + col);
+}
+
+function add_row(row, row_num, num_cols, text_size) {
+	for (var i = 0; i<num_cols; i++) {
+		var cell = row.insertCell(i);
+		cell.innerHTML = "<input type='text' size='1' maxlength='1' style='border: none; font-size: "+text_size+"px; width: 1.1em"+"' id='txt_"+row_num+"_"+i+"'></input>"+row_num+" " + i;
+		
+		cell.setAttribute("onclick","on_cell_click("+row_num+","+i+");");
+		cell.setAttribute("id","td_"+row_num+"_"+i);
+//		.onclick = function() {var r = row_num; var c = i;  };
+	}
+}
+function make_table(num_rows,num_cols, text_size) {
+	clear_table();
+	alert('make_talbe'+num_rows+" "+num_cols);
+	table = document.getElementById('cross_table');
+	for (var i =0; i<num_rows; i++) {
+		var row = table.insertRow(i);
+		add_row(row, i, num_cols, text_size);
+	}
+}
+function get_num_rows() {
+	return parseInt(document.getElementById("row_input").value);
+}
+function get_num_cols() {
+    return parseInt(document.getElementById("col_input").value);
+}
+function get_text_size() {
+    return 30;
+}
+function make_crossword() {
+	make_table(get_num_rows(), get_num_cols(), get_text_size());
+}
+</script>
+<body>
+
+<h2>Crossword Magic</h2>
+<div>
+<button type="button" onclick="make_crossword()">Create</button><input id="col_input" type="text" size="3" placeholder="col"></input>
+<input id="row_input" type="text" size="3" placeholder="row"></input>
+</div>
+<div>
+<table style="" id="cross_table">
+<tbody>
+</table>
+</div>
+
+</body>
+</html>
+
